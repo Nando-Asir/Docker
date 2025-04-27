@@ -99,10 +99,12 @@ docker compose version
 
 | Acción | Comando |
 |:-------|:--------|
-| Buscar imagen | `docker search nginx` |
-| Descargar imagen | `docker pull nginx` |
+| Buscar imagen | `docker search <nombre ID>` |
+| Descargar imagen | `docker pull <nombre ID>` |
 | Ver imágenes descargadas | `docker images` |
-| Ejecutar contenedor | `docker run -d -p 8080:80 nginx` |
+| Ejecutar contenedor | `docker run -d -p 8080:80 <nombre ID>` |
+| Ejecutar con comando | `docker run -it <nombre ID> /bin/bash` |
+| Crear un contenedor y muestra una carpeta con-w | `docker run -it -w <carpeta> <nombre ID> <comando>` |
 | Listar contenedores activos | `docker ps` |
 | Listar todos los contenedores | `docker ps -a` |
 | Detener un contenedor | `docker stop <nombre ID>` |
@@ -110,7 +112,6 @@ docker compose version
 | Eliminar contenedor | `docker rm <nombre ID>` |
 | Eliminar imagen | `docker rmi <imagen>` |
 | Ver logs de contenedor | `docker logs <nombre ID>` |
-| Ejecutar comandos dentro | `docker exec -it <nombre ID> bash` |
 | Inspeccionar contenedor | `docker inspect <nombre ID>` |
 
 ### Ejemplo: correr un servidor Nginx
