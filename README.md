@@ -105,13 +105,13 @@ docker compose version
 | Ejecutar contenedor | `docker run -d -p 8080:80 nginx` |
 | Listar contenedores activos | `docker ps` |
 | Listar todos los contenedores | `docker ps -a` |
-| Detener un contenedor | `docker stop <nombre|ID>` |
-| Reiniciar contenedor | `docker restart <nombre|ID>` |
-| Eliminar contenedor | `docker rm <nombre|ID>` |
+| Detener un contenedor | `docker stop <nombre ID>` |
+| Reiniciar contenedor | `docker restart <nombre ID>` |
+| Eliminar contenedor | `docker rm <nombre ID>` |
 | Eliminar imagen | `docker rmi <imagen>` |
-| Ver logs de contenedor | `docker logs <nombre|ID>` |
-| Ejecutar comandos dentro | `docker exec -it <nombre|ID> bash` |
-| Inspeccionar contenedor | `docker inspect <nombre|ID>` |
+| Ver logs de contenedor | `docker logs <nombre ID>` |
+| Ejecutar comandos dentro | `docker exec -it <nombre ID> bash` |
+| Inspeccionar contenedor | `docker inspect <nombre ID>` |
 
 ### Ejemplo: correr un servidor Nginx
 ```bash
