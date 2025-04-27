@@ -1,222 +1,162 @@
-# 🐳 Docker - Guía Completa
+# 🐳 Docker - Guía Completa de Instalación y Uso
 
-Este repositorio contiene una guía completa para instalar, configurar y utilizar Docker en sistemas basados en Debian y Ubuntu. Docker es una plataforma de contenedores que permite empaquetar aplicaciones y sus dependencias en entornos aislados, facilitando su despliegue y ejecución en diferentes sistemas.
-
-## 📋 Tabla de Contenidos
-
-1. [Instalación](#instalación)
-   - [En Debian](#en-debian)
-   - [En Ubuntu](#en-ubuntu)
-2. [Uso Básico](#uso-básico)
-3. [Manejo de Contenedores](#manejo-de-contenedores)
-4. [Tabla de Comandos Útiles](#tabla-de-comandos-útiles)
-5. [Consejos y Buenas Prácticas](#consejos-y-buenas-prácticas)
-6. [Recursos Adicionales](#recursos-adicionales)
+[![Docker](https://img.shields.io/badge/docker-ready-blue?logo=docker)](https://www.docker.com/)
+[![Ubuntu Compatible](https://img.shields.io/badge/ubuntu-20.04%2B-orange?logo=ubuntu)](https://ubuntu.com/)
+[![Debian Compatible](https://img.shields.io/badge/debian-11%2B-red?logo=debian)](https://www.debian.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 ---
 
-## Instalación
+## 📚 Índice
+- [🚀 Introducción](#-introducción)
+- [🔧 Instalación de Docker](#-instalación-de-docker)
+- [🏁 Primeros pasos](#-primeros-pasos)
+- [📦 Manejo de contenedores](#-manejo-de-contenedores)
+- [🧰 Tabla de comandos útiles](#-tabla-de-comandos-útiles)
+- [📄 Instalación de Docker Compose (opcional)](#-instalación-de-docker-compose-opcional)
+- [🛠️ Solución de problemas (Troubleshooting)](#️-solución-de-problemas-troubleshooting)
+- [🌐 Recursos adicionales](#-recursos-adicionales)
 
-### En Debian
+---
 
-Para instalar Docker en Debian, sigue estos pasos:
+## 🚀 Introducción
+Esta guía te enseña cómo instalar y utilizar **Docker** en **Debian** o **Ubuntu** de forma práctica y rápida.  
+Docker permite construir, desplegar y gestionar aplicaciones de manera aislada usando **contenedores**.
 
-1. **Actualizar el sistema**:
-   ```bash
-   sudo apt update && sudo apt upgrade -y
-   ```
+---
 
-2. **Instalar dependencias necesarias**:
-   ```bash
-   sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
-   ```
+## 🔧 Instalación de Docker
 
-3. **Agregar la clave GPG oficial de Docker**:
-   ```bash
-   curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-   ```
+### 1. Eliminar versiones antiguas
+```bash
+sudo apt-get remove docker docker-engine docker.io containerd runc
+2. Actualizar repositorios
+bash
+Copiar
+Editar
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg lsb-release
+3. Añadir la clave GPG oficial
+bash
+Copiar
+Editar
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+4. Configurar el repositorio
+bash
+Copiar
+Editar
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+💡 Nota: Si usas Debian, reemplaza ubuntu por debian en el enlace del repositorio.
 
-4. **Agregar el repositorio de Docker**:
-   ```bash
-   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-   ```
+5. Instalar Docker Engine
+bash
+Copiar
+Editar
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+6. Verificar instalación
+bash
+Copiar
+Editar
+docker --version
+🏁 Primeros pasos
+Comprobar que Docker está corriendo:
 
-5. **Actualizar los índices de paquetes e instalar Docker**:
-   ```bash
-   sudo apt update
-   sudo apt install -y docker-ce docker-ce-cli containerd.io
-   ```
+bash
+Copiar
+Editar
+sudo systemctl status docker
+Iniciar Docker (si es necesario):
 
-6. **Verificar la instalación**:
-   ```bash
-   sudo docker --version
-   ```
+bash
+Copiar
+Editar
+sudo systemctl start docker
+📦 Manejo de contenedores
 
-7. **(Opcional) Agregar tu usuario al grupo docker**:
-   ```bash
-   sudo usermod -aG docker $USER
-   ```
-   Luego, reinicia tu sesión para aplicar los cambios.
+Acción	Comando
+Buscar imágenes	docker search nginx
+Descargar imagen	docker pull nginx
+Ejecutar un contenedor	docker run -d -p 8080:80 nginx
+Listar contenedores en ejecución	docker ps
+Listar todos los contenedores	docker ps -a
+Detener un contenedor	docker stop <nombre o ID>
+Eliminar un contenedor	docker rm <nombre o ID>
+Ver logs de un contenedor	docker logs <nombre o ID>
+🧠 Tip: Usa docker ps -a para ver contenedores detenidos también.
 
-### En Ubuntu
+🧰 Tabla de comandos útiles
 
-Para instalar Docker en Ubuntu, sigue estos pasos:
+Acción rápida	Comando
+Ver versión de Docker	docker --version
+Ver imágenes disponibles	docker images
+Eliminar una imagen	docker rmi <imagen>
+Inspeccionar un contenedor	docker inspect <nombre>
+Mostrar estadísticas	docker stats
+📄 Instalación de Docker Compose (opcional)
+Docker Compose permite definir y correr aplicaciones multicontenedor mediante un archivo YAML.
 
-1. **Actualizar el sistema**:
-   ```bash
-   sudo apt update && sudo apt upgrade -y
-   ```
+Instalar Docker Compose
+bash
+Copiar
+Editar
+sudo apt-get install docker-compose-plugin
+Verificar instalación
+bash
+Copiar
+Editar
+docker compose version
+Ejemplo básico de docker-compose.yml
+yaml
+Copiar
+Editar
+version: "3.9"
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+Para iniciar los servicios:
 
-2. **Instalar dependencias necesarias**:
-   ```bash
-   sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
-   ```
+bash
+Copiar
+Editar
+docker compose up -d
+Para detenerlos:
 
-3. **Agregar la clave GPG oficial de Docker**:
-   ```bash
-   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-   ```
+bash
+Copiar
+Editar
+docker compose down
+🛠️ Solución de problemas (Troubleshooting)
+Docker no inicia:
 
-4. **Agregar el repositorio de Docker**:
-   ```bash
-   echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-   ```
+bash
+Copiar
+Editar
+sudo systemctl start docker
+Error: permission denied (sin sudo): Agrega tu usuario al grupo docker:
 
-5. **Actualizar los índices de paquetes e instalar Docker**:
-   ```bash
-   sudo apt update
-   sudo apt install -y docker-ce docker-ce-cli containerd.io
-   ```
+bash
+Copiar
+Editar
+sudo usermod -aG docker $USER
+newgrp docker
+Error "Cannot connect to the Docker daemon": Asegúrate de que Docker esté en ejecución:
 
-6. **Verificar la instalación**:
-   ```bash
-   sudo docker --version
-   ```
+bash
+Copiar
+Editar
+sudo systemctl status docker
+🌐 Recursos adicionales
+📚 Documentación oficial de Docker
 
-7. **(Opcional) Agregar tu usuario al grupo docker**:
-   ```bash
-   sudo usermod -aG docker $USER
-   ```
-   Luego, reinicia tu sesión para aplicar los cambios.
+📖 Referencias de comandos CLI
 
-## Uso Básico
+🎓 Docker para principiantes - Guía interactiva
 
-- **Descargar una imagen desde Docker Hub**:
-  ```bash
-  docker pull <nombre-de-la-imagen>
-  ```
-
-- **Ejecutar un contenedor**:
-  ```bash
-  docker run <nombre-de-la-imagen>
-  ```
-
-- **Ejecutar un contenedor en segundo plano (detached mode)**:
-  ```bash
-  docker run -d <nombre-de-la-imagen>
-  ```
-
-- **Listar contenedores en ejecución**:
-  ```bash
-  docker ps
-  ```
-
-- **Listar todos los contenedores (incluidos los detenidos)**:
-  ```bash
-  docker ps -a
-  ```
-
-- **Detener un contenedor**:
-  ```bash
-  docker stop <id-o-nombre-del-contenedor>
-  ```
-
-- **Eliminar un contenedor**:
-  ```bash
-  docker rm <id-o-nombre-del-contenedor>
-  ```
-
-- **Eliminar una imagen**:
-  ```bash
-  docker rmi <id-o-nombre-de-la-imagen>
-  ```
-
-## Manejo de Contenedores
-
-- **Crear una red personalizada**:
-  ```bash
-  docker network create <nombre-de-la-red>
-  ```
-
-- **Conectar un contenedor a una red específica**:
-  ```bash
-  docker run --network=<nombre-de-la-red> <nombre-de-la-imagen>
-  ```
-
-- **Inspeccionar un contenedor**:
-  ```bash
-  docker inspect <id-o-nombre-del-contenedor>
-  ```
-
-- **Ver los logs de un contenedor**:
-  ```bash
-  docker logs <id-o-nombre-del-contenedor>
-  ```
-
-- **Ejecutar un comando dentro de un contenedor en ejecución**:
-  ```bash
-  docker exec -it <id-o-nombre-del-contenedor> <comando>
-  ```
-
-## Tabla de Comandos Útiles
-
-| Comando | Descripción |
-|---------|-------------|
-| `docker pull <imagen>` | Descarga una imagen desde Docker Hub. |
-| `docker run <imagen>` | Crea y ejecuta un contenedor a partir de una imagen. |
-| `docker ps` | Lista los contenedores en ejecución. |
-| `docker ps -a` | Lista todos los contenedores (incluidos detenidos). |
-| `docker stop <contenedor>` | Detiene un contenedor en ejecución. |
-| `docker rm <contenedor>` | Elimina un contenedor. |
-| `docker rmi <imagen>` | Elimina una imagen. |
-| `docker images` | Lista las imágenes disponibles localmente. |
-| `docker exec -it <contenedor> bash` | Accede al shell de un contenedor en ejecución. |
-| `docker logs <contenedor>` | Muestra los logs de un contenedor. |
-| `docker network create <red>` | Crea una red personalizada. |
-| `docker inspect <contenedor>` | Muestra información detallada de un contenedor. |
-
-## Consejos y Buenas Prácticas
-
-- **Usa nombres descriptivos para tus contenedores**: Esto facilita su identificación.
-  ```bash
-  docker run --name mi-aplicacion <imagen>
-  ```
-
-- **Limpia recursos innecesarios**: Elimina contenedores e imágenes no utilizados para liberar espacio.
-  ```bash
-  docker system prune -a
-  ```
-
-- **Usa Docker Compose para aplicaciones multi-contenedor**: Facilita la gestión de servicios interdependientes.
-  ```yaml
-  version: '3'
-  services:
-    web:
-      image: nginx
-      ports:
-        - "80:80"
-  ```
-
-- **Monta volúmenes para persistir datos**: Evita perder datos cuando un contenedor se detenga o elimine.
-  ```bash
-  docker run -v /ruta/local:/ruta/contenedor <imagen>
-  ```
-
-## Recursos Adicionales
-
-- [Docker Documentation](https://docs.docker.com/)
-- [Docker Hub](https://hub.docker.com/)
-- [Docker Compose](https://docs.docker.com/compose/)
-- [Best Practices for Writing Dockerfiles](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
-
-Si tienes alguna pregunta o sugerencia, no dudes en abrir un issue en este repositorio. ¡Gracias por usar Docker! 🐳
+✨ Autor: Nando-Asir
+🛡️ Licencia: MIT
