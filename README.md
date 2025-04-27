@@ -29,52 +29,52 @@ Docker permite crear, desplegar y gestionar aplicaciones mediante **contenedores
 ## 🔧 Instalación de Docker
 
 ### 1. Eliminar versiones antiguas
-\`\`\`bash
+```bash
 sudo apt-get remove docker docker-engine docker.io containerd runc
-\`\`\`
+```
 
 ### 2. Actualizar repositorios
-\`\`\`bash
+```bash
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg lsb-release
-\`\`\`
+```
 
 ### 3. Añadir la clave GPG oficial
-\`\`\`bash
+```bash
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-\`\`\`
+```
 
 ### 4. Configurar el repositorio
-\`\`\`bash
+```bash
 echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-\`\`\`
+```
 > 💡 **Nota:** Si usas Debian, reemplaza \`ubuntu\` por \`debian\` en la URL.
 
 ### 5. Instalar Docker Engine
-\`\`\`bash
+```bash
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-\`\`\`
+```
 
 ### 6. Verificar la instalación
-\`\`\`bash
+```bash
 docker --version
-\`\`\`
+```
 
 ---
 
 ## 🏁 Primeros pasos
 
 - **Comprobar estado de Docker:**
-  \`\`\`bash
+```bash
   sudo systemctl status docker
-  \`\`\`
+```
 
 - **Iniciar Docker (si no está en ejecución):**
-  \`\`\`bash
+```bash
   sudo systemctl start docker
-  \`\`\`
+```
 
 ---
 
@@ -83,44 +83,44 @@ docker --version
 ### Acciones comunes:
 
 - **Buscar una imagen:**
-  \`\`\`bash
+  ```bash
   docker search nginx
-  \`\`\`
+  ```
 
 - **Descargar una imagen:**
-  \`\`\`bash
+  ```bash
   docker pull nginx
-  \`\`\`
+  ```
 
 - **Ejecutar un contenedor:**
-  \`\`\`bash
+  ```bash
   docker run -d -p 8080:80 nginx
-  \`\`\`
+  ```
 
 - **Listar contenedores en ejecución:**
-  \`\`\`bash
+  ```bash
   docker ps
-  \`\`\`
+  ```
 
 - **Listar todos los contenedores (activos y detenidos):**
-  \`\`\`bash
+  ```bash
   docker ps -a
-  \`\`\`
+  ```
 
 - **Detener un contenedor:**
-  \`\`\`bash
+  ```bash
   docker stop <ID o nombre>
-  \`\`\`
+  ```
 
 - **Eliminar un contenedor:**
-  \`\`\`bash
+  ```bash
   docker rm <ID o nombre>
-  \`\`\`
+  ```
 
 - **Ver logs de un contenedor:**
-  \`\`\`bash
+  ```bash
   docker logs <ID o nombre>
-  \`\`\`
+  ```
 
 ---
 
@@ -139,56 +139,56 @@ docker --version
 ## 📄 Instalación de Docker Compose (opcional)
 
 ### Instalar Docker Compose:
-\`\`\`bash
+```bash
 sudo apt-get install docker-compose-plugin
-\`\`\`
+```
 
 ### Verificar instalación:
-\`\`\`bash
+```bash
 docker compose version
-\`\`\`
+```
 
 ### Ejemplo básico de \`docker-compose.yml\`
-\`\`\`yaml
+```yaml
 version: "3.9"
 services:
   web:
     image: nginx
     ports:
       - "8080:80"
-\`\`\`
+```
 
 Para levantar los servicios:
-\`\`\`bash
+```bash
 docker compose up -d
-\`\`\`
+```
 
 Para detenerlos:
-\`\`\`bash
+```bash
 docker compose down
-\`\`\`
+```
 
 ---
 
 ## 🛠️ Solución de problemas
 
 - **Docker no arranca**:
-  \`\`\`bash
+  ```bash
   sudo systemctl start docker
-  \`\`\`
+  ```
 
 - **Problemas de permisos ("Permission denied"):**
   Añadir tu usuario al grupo \`docker\`:
-  \`\`\`bash
+  ```bash
   sudo usermod -aG docker $USER
   newgrp docker
-  \`\`\`
+  ```
 
 - **Error "Cannot connect to the Docker daemon":**
   Verificar estado:
-  \`\`\`bash
+  ```bash
   sudo systemctl status docker
-  \`\`\`
+  ```
 
 ---
 
