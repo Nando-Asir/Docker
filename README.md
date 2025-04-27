@@ -104,7 +104,7 @@ docker compose version
 | Ver imágenes descargadas | `docker images` |
 | Ejecutar contenedor | `docker run -d -p 8080:80 <nombre ID>` |
 | Ejecutar con comando | `docker run -it <nombre ID> /bin/bash` |
-| Crear un contenedor y muestra una carpeta con-w | `docker run -it -w <carpeta> <nombre ID> <comando>` |
+| Crear un contenedor y ejecuta un comando| `docker run -it -w <carpeta> <nombre ID> <comando>` |
 | Listar contenedores activos | `docker ps` |
 | Listar todos los contenedores | `docker ps -a` |
 | Detener un contenedor | `docker stop <nombre ID>` |
